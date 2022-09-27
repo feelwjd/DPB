@@ -1,0 +1,26 @@
+{
+  "name": "dpb",
+  "version": "1.0.0",
+  "description": "Decentralize Personal Bank",
+  "main": "app.ts",
+  "scripts": {
+    "start": "nodemon app.ts",
+    "build": "tsc -p .",
+    "test": "mocha test.ts"
+  },
+  "author": "Tony Min",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "^18.7.23",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  }
+}
