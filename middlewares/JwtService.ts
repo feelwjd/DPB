@@ -14,7 +14,7 @@ export default class JwtService {
     }
 
     static extractTokenFromRequest = (req: Request): string | undefined => {
-        const TOKEN_PREFIX = 'Bearer';
+        const TOKEN_PREFIX = process.env.TOKEN_PREFIX!;
         const auth = req.headers.authorization;
         const token = auth?.includes(TOKEN_PREFIX)
             ? auth.split(TOKEN_PREFIX)[1]
@@ -33,7 +33,7 @@ export default class JwtService {
 
     static createJWT =async (user:User): Promise<string> => {
         const token = jwt.sign(
-            {_id: user.userId},
+            {_id: user.id},
             process.env.JWT_SECRET_KEY!,
         );
         return token;

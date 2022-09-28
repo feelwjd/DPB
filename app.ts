@@ -1,8 +1,18 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import JwtService from './middlewares/JwtService';
+import cors from 'cors';
+import { sequelize } from './Models';
 dotenv.config();
 const app = express();
+
+sequelize.sync({alter: false, force: false})
+    .then(()=>{
+        console.log("✅ Connected to the database!");
+    })
+    .catch((error) =>{
+        throw new Error(error);
+    });
 
 const tokenChecker = function (req: Request, res: Response, next: NextFunction){
     const userIdFromToken = JwtService.getUserIdFromRequest(req);
@@ -10,7 +20,9 @@ const tokenChecker = function (req: Request, res: Response, next: NextFunction){
     next();
 }
 
+app.use(cors());
 app.use(tokenChecker);
+app.use(express.json());
 
 app.get('/',(req: Request, res: Response, next: NextFunction)=>{
     res.send('hello');
