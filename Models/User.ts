@@ -1,67 +1,78 @@
-export class User {
-    private Id : string = "";
-    private Pw : string = "";
-    private Age : number = 0;
-    private Adress : string = "";
-    private Name : string = "";
-    
-    get userId(): string {
-        return this.Id;
+export class User{
+    private _id!: string;
+    private _pw!: string;
+    private _age!: number;
+    private _adress!: string;
+    private _name!: string;
+
+    constructor(id: string, pw: string, age: number, adress: string, name: string){
+        this.id = id;
+        this.pw = pw;
+        this.age = age;
+        this.adress = adress;
+        this.name = name;
     }
 
-    set userId(value: string) {
+    get id(): string {
+        return this._id;
+    }
+
+    set id(value: string) {
         if (value == null || value == "") {
             throw new Error('Id is Empty');
         }else{
-            this.Id = value;
+            this._id = value;
         }
     }
 
-    get userPw(): string {
-        return this.Pw;
+    get pw(): string {
+        return this._pw;
     }
 
-    set userPw(value: string) {
+    set pw(value: string) {
         if (value == null || value == "") {
             throw new Error('Pw is Empty');
         }else{
-            this.Pw = value;
+            this._pw = value;
         }
     }
 
-    get userAge(): number {
-        return this.Age;
+    get age(): number {
+        return this._age;
     }
 
-    set userAge(value: number) {
+    set age(value: number) {
         if (value == null || value <= 0) {
             throw new Error('Age is bigger than zero');
         }else{
-            this.Age = value;
+            this._age = value;
         }
     }
 
-    get userAdress(): string {
-        return this.Adress;
+    get adress(): string {
+        return this._adress;
     }
 
-    set userAdress(value: string) {
+    set adress(value: string) {
         if (value == null || value == "") {
             throw new Error('Adress is Empty');
         }else{
-            this.Adress = value;
+            this._adress = value;
         }
     }
 
-    get userName(): string {
-        return this.Name;
+    get name(): string {
+        return this._name;
     }
 
-    set userName(value: string) {
+    set name(value: string) {
         if (value == null || value == "") {
             throw new Error('Name is Empty');
         }else{
-            this.Name = value;
+            this._name = value;
         }
     }
+
+    /** Function */
+    
 }
