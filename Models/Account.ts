@@ -133,3 +133,11 @@ Account.init(
         updatedAt : 'updatedAt'
     }
 )
+User.hasMany(Account, {
+    sourceKey : "user_id",
+    foreignKey : "user_id"
+});
+Account.belongsTo(User, {
+    foreignKey: 'user_id',
+    targetKey: 'user_id'
+})

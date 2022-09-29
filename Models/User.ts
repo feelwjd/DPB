@@ -25,6 +25,12 @@ export class User extends Model<UserAttributes> {
     private readonly _createdAt! : Date;
     private readonly _updatedAt! : Date;
 
+    public getAccount!: HasManyGetAssociationsMixin<Account>;
+    public addAccount!: HasManyAddAssociationMixin<Account, number>;
+    public hasAccount!: HasManyHasAssociationMixin<Account, number>;
+    public countAccount!: HasManyCountAssociationsMixin;
+    public createAccount!: HasManyCreateAssociationMixin<Account>;
+
     get id(): number {
         return this._id;
     }
@@ -148,12 +154,6 @@ User.init(
         sequelize,
         freezeTableName: true,
         timestamps : true,
-        updatedAt : 'updatedAt'
+        updatedAt : 'updatedAt',
     }
 )
-
-User.hasMany(Account, {
-    sourceKey : "user_id",
-    foreignKey : "user_id",
-    as : 'userHasManyAccount'
-});
