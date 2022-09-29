@@ -1,4 +1,4 @@
-import {User} from '../../models/User';
+import {User} from '../../Models/User';
 
 console.log("======Create User Table======");
 

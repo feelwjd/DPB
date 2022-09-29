@@ -1,6 +1,6 @@
 import { Request } from "express";
 import jwt from 'jsonwebtoken';
-import {User} from '../models/User';
+import {User} from '../Models/User';
 
 export default class JwtService {
     static getUserIdFromRequest = (req: Request): string | null => {

@@ -3,7 +3,7 @@ import { Sequelize, DataTypes, Model, Optional,
     HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, Association  
 } from "sequelize";
 import { Account } from "./Account";
-import {sequelize} from './index';
+import {sequelize} from '.';
 
 interface UserAttributes {
     user_id : string,

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "../models/User";
+import { User } from "../Models/User";
 import statusCode from "../modules/statusCode";
 import message from "../modules/message";
-import { Account } from "../models/Account";
+import { Account } from "../Models/Account";
 import responseMessage from "../modules/responseMessage";
 
 export = {
