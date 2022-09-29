@@ -118,6 +118,7 @@ export class User extends Model<UserAttributes> {
     public static associations: {
         userHasManyAccount : Association<User,Account>;
     };
+    
 }
 
 User.init(
