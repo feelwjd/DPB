@@ -1,6 +1,6 @@
 import { Request } from "express";
 import jwt from 'jsonwebtoken';
-import {User} from '../Models/User';
+import {User} from '../models/User';
 
 export default class JwtService {
     static getUserIdFromRequest = (req: Request): string | null => {
@@ -33,7 +33,7 @@ export default class JwtService {
 
     static createJWT =async (user:User): Promise<string> => {
         const token = jwt.sign(
-            {_id: user.id},
+            {_id: user.user_id},
             process.env.JWT_SECRET_KEY!,
         );
         return token;

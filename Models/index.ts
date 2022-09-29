@@ -1,8 +1,5 @@
 import {Sequelize, Model, Optional, DataType, Association} from 'sequelize';
 import {config} from '../config/config';
-import { Account } from './Account';
-import { User } from './User';
-
 
 export const sequelize = new Sequelize(
     config.development.database!,
@@ -12,6 +9,6 @@ export const sequelize = new Sequelize(
         host: config.development.host,
         dialect: 'mysql'
     }
-)
+);
 
 

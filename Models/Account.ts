@@ -1,25 +1,41 @@
-export class Account{
-    private _accountId!: string;
+import { Sequelize, DataTypes, Model, Optional,
+    HasManyGetAssociationsMixin, HasManyAddAssociationMixin, HasManyHasAssociationMixin,
+    HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, Association  
+} from "sequelize";
+import {sequelize} from './index';
+import { User } from "./User";
+
+interface AccountAttributes{
+    account_id : string,
+    account_pw : string,
+    balance : number,
+    user_id : string,
+    del_yn : boolean,
+}
+
+export class Account extends Model<AccountAttributes>{
+    private readonly _id!: number;
+    private _account_id!: string;
     private _balance!: number;
-    private _userId!: string;
-    private _accountPw!: string;
+    private _user_id!: string;
+    private _account_pw!: string;
+    private readonly _createdAt!: Date;
+    private readonly _updatedAt!: Date;
+    private _del_yn!: boolean;
 
-    constructor(accountId: string, balance: number, userId: string, accountPw: string){
-        this.accountId = accountId;
-        this.balance = balance;
-        this.userId = userId;
-        this.accountPw = accountPw;
+    get id(): number {
+        return this._id;
     }
 
-    get accountId(): string {
-        return this._accountId;
+    get account_id(): string {
+        return this._account_id;
     }
 
-    set accountId(value: string) {
+    set account_id(value: string) {
         if (value == null || value == "") {
             throw new Error('AccountId is Empty');
         }else{
-            this._accountId = value;
+            this._account_id = value;
         }
     }
 
@@ -35,36 +51,85 @@ export class Account{
         }
     }
 
-    get userId(): string {
-        return this._userId;
+    get user_id(): string {
+        return this._user_id;
     }
 
     set userId(value: string) {
         if (value == null || value == "") {
             throw new Error('UserId is Empty');
         }else{
-            this._userId = value;
+            this._user_id = value;
         }
     }
 
-    get accountPw(): string {
-        return this._accountPw;
+    get account_pw(): string {
+        return this._account_pw;
     }
 
-    set accountPw(value: string) {
+    set account_pw(value: string) {
         if (value == null || value == "") {
             throw new Error('AccountPw is Empty');
         }else{
-            this._accountPw = value;
+            this._account_pw = value;
         }
     }
 
-    /*Function */
-    Deposit(balance:number){
-        
+    get createdAt(): Date {
+        return this._createdAt;
     }
 
-    Withdraw(balance:number){
-
+    get updatedAt(): Date {
+        return this._updatedAt;
     }
+
+    get del_yn(): boolean {
+        return this._del_yn;
+    }
+
+    set del_yn(value: boolean) {
+        if (value == null || value == undefined) {
+            throw new Error('DelYN is Empty');
+        }else{
+            this._del_yn = value;
+        }
+    }
+
+    public static associations: {
+
+    };
 }
+
+Account.init(
+    {
+        account_id : {
+            type : DataTypes.STRING(40),
+            allowNull : false,
+            unique : true
+        },
+        account_pw : {
+            type : DataTypes.STRING(60),
+            allowNull : false
+        },
+        balance : {
+            type : DataTypes.INTEGER,
+            allowNull : false
+        },
+        user_id : {
+            type : DataTypes.STRING(30),
+            allowNull : false
+        },
+        del_yn : {
+            type : DataTypes.BOOLEAN,
+            allowNull : false
+        },
+    },
+    {
+        modelName : 'Account',
+        tableName : 'Account',
+        sequelize,
+        freezeTableName : true,
+        timestamps : true,
+        updatedAt : 'updatedAt'
+    }
+)
