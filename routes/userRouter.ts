@@ -6,4 +6,6 @@ userRouter.post("/signin",userController.signin);
 
 userRouter.post("/signup",userController.signup);
 
+userRouter.post("/userUpdate",userController.update);
+
 module.exports = userRouter;

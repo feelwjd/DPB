@@ -75,5 +75,48 @@ export = {
                 console.log(err);
             }
         }
+    },
+    update:async (req: Request, res: Response, next: NextFunction) => {
+        const {user_id, user_pw, age, adress, name} = req.body;
+        if (!user_id){
+            return res
+                .status(statusCode.BAD_REQUEST)
+                .send(message.fail(statusCode.BAD_REQUEST,'사용자를 찾는데 실패하였습니다.'));
+        }else{
+            try{
+                const userInfo = await User.findOne({
+                    where: {user_id}
+                });
+                if(!userInfo){
+                    return res
+                        .status(statusCode.BAD_REQUEST)
+                        .send(message.fail(statusCode.BAD_REQUEST,'사용자가 존재하지 않습니다.'));
+                }else{
+                    const updateUser = await User.update({
+                        user_pw: encrypt(user_pw)||userInfo.user_pw
+                        , age: age||userInfo.age
+                        , adress: adress||userInfo.adress
+                        , name: name||userInfo.name
+                    },
+                    {
+                        where: {user_id: userInfo.user_id}
+                    });
+                    if(!updateUser){
+                        return res
+                            .status(statusCode.BAD_REQUEST)
+                            .send(message.fail(statusCode.BAD_REQUEST,'업데이트에 실패하였습니다.'));
+                    }else{
+                        const updateUserInfo = await User.findOne({
+                            where: {user_id: userInfo.user_id}
+                        });
+                        return res
+                            .status(statusCode.OK)
+                            .send(message.success(statusCode.OK, '업데이트 성공', updateUserInfo));
+                    }
+                }
+            }catch(err){
+                console.log(err);
+            }
+        }
     }
 }
