@@ -35,9 +35,14 @@ export = {
                         .status(statusCode.NOT_FOUND)
                         .send(message.fail(statusCode.NOT_FOUND, '아이디가 존재하지 않습니다.'));
                 }else{
+                    const accessToken = await JwtService.sign(user);
                     return res
                         .status(statusCode.OK)
-                        .send(message.success(statusCode.OK,'로그인 성공하였습니다.',user));
+                        .send(message.success(statusCode.OK,'로그인 성공하였습니다.',{
+                            isSigned: true,
+                            userData: user,
+                            userToken: accessToken
+                        }));
                 }
             }catch(err){
                 console.log(err);
