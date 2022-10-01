@@ -1,41 +1,40 @@
 import { Request } from "express";
 import jwt from 'jsonwebtoken';
 import {User} from '../Models/User';
+import { secretKey } from '../config/secretKey';
 
-export default class JwtService {
-    static getUserIdFromRequest = (req: Request): string | null => {
-        const token = this.extractTokenFromRequest(req);
-        if (!token){
-            return null;
-        }else{
-            const jwtPayload = this.decodeJWT(token);
-            return (jwtPayload as any)?._id || null;
+const TOKEN_EXPIRED = -3;
+const TOKEN_INVALID = -2;
+
+export = {
+    sign: async (user: User) => {
+      const payload = {
+        id: user.id,
+        username: user.name,
+      };
+      const result = {
+        accessToken: jwt.sign(payload, secretKey.secretKey, secretKey.option),
+        // refreshToken: jwt.sign(payload, secretKey, refreshOptions),
+      };
+      return result;
+    },
+    verify: async (token: any) => {
+      let decoded;
+      try {
+        decoded = jwt.verify(token, secretKey.secretKey);
+      } catch (err) {
+        if (err === "jwt expired") {
+          console.log("expired token");
+          return TOKEN_EXPIRED;
+        } else if (err === "invalid token") {
+          console.log("invalid token");
+          console.log(TOKEN_INVALID);
+          return TOKEN_INVALID;
+        } else {
+          console.log("invalid token");
+          return TOKEN_INVALID;
         }
-    }
-
-    static extractTokenFromRequest = (req: Request): string | undefined => {
-        const TOKEN_PREFIX = process.env.TOKEN_PREFIX!;
-        const auth = req.headers.authorization;
-        const token = auth?.includes(TOKEN_PREFIX)
-            ? auth.split(TOKEN_PREFIX)[1]
-            : auth
-        return token;
-    }
-
-    static decodeJWT = (token: string) => {
-        try{
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY!)
-            return decodedToken;
-        }catch{
-            return null;
-        }
-    }
-
-    static createJWT =async (user:User): Promise<string> => {
-        const token = jwt.sign(
-            {_id: user.user_id},
-            process.env.JWT_SECRET_KEY!,
-        );
-        return token;
-    }
-}
+      }
+      return decoded;
+    },
+  };

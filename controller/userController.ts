@@ -5,6 +5,7 @@ import message from "../modules/message";
 import { Account } from "../Models/Account";
 import { encrypt, decrypt } from "../modules/crypto";
 import responseMessage from "../modules/responseMessage";
+import JwtService from "../middlewares/JwtService";
 
 export = {
     signin: async (req: Request, res: Response, next: NextFunction) => {
