@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import JwtService from './middlewares/JwtService';
 import cors from 'cors';
-import { sequelize } from './Models';
+import { sequelize } from './models';
 import cookieParser from 'cookie-parser';
 var userRouter = require('./routes/userRouter');
 dotenv.config();

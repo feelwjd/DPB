@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "../Models/User";
+import { User } from "../models/User";
 import statusCode from "../modules/statusCode";
 import message from "../modules/message";
 import { Account } from "../models/Account";
-import { encrypt, decrypt } from "../modules/crypto";
+import { encrypt, decrypt } from "../modules/crypto"
 import responseMessage from "../modules/responseMessage";
 import JwtService from "../middlewares/JwtService";
 
