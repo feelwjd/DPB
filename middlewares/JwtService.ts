@@ -1,6 +1,6 @@
 import { Request } from "express";
 import jwt from 'jsonwebtoken';
-import {User} from '../Models/User';
+import {User} from '../models/User';
 import { secretKey } from '../config/secretKey';
 
 const TOKEN_EXPIRED = -3;

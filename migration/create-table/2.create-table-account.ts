@@ -1,4 +1,4 @@
-import {Account} from '../../Models/Account';
+import {Account} from '../../models/Account';
 
 console.log("======Create Account Table======");
 
