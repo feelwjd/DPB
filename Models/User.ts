@@ -9,7 +9,7 @@ interface UserAttributes {
     user_id : string,
     user_pw : string,
     age : number,
-    adress : string,
+    address : string,
     name : string,
     sex : boolean,
 }
@@ -19,7 +19,7 @@ export class User extends Model<UserAttributes> {
     private _user_id! : string;
     private _user_pw! : string;
     private _age! : number;
-    private _adress! : string;
+    private _address! : string;
     private _name! : string;
     private _sex! : boolean;
     private readonly _createdAt! : Date;
@@ -71,15 +71,15 @@ export class User extends Model<UserAttributes> {
         }
     }
 
-    get adress(): string {
-        return this._adress;
+    get address(): string {
+        return this._address;
     }
 
-    set adress(value: string) {
+    set address(value: string) {
         if (value == null || value == "") {
             throw new Error('Adress is Empty');
         }else{
-            this._adress = value;
+            this._address = value;
         }
     }
 
@@ -136,7 +136,7 @@ User.init(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        adress : {
+        address : {
             type: DataTypes.STRING(100),
             allowNull: false
         },

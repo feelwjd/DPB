@@ -23,7 +23,7 @@ export = {
                         "user_id",
                         "name",
                         "age",
-                        "adress",
+                        "address",
                         "sex",
                     ],
                     include: [
@@ -50,8 +50,8 @@ export = {
         }
     },
     signup:async (req: Request, res: Response, next: NextFunction) => {
-        const {user_id, user_pw, age, adress, name, sex} = req.body;
-        if(!user_id||!user_pw||!age||!adress||!name||!sex){
+        const {user_id, user_pw, age, address, name, sex} = req.body;
+        if(!user_id||!user_pw||!age||!address||!name||!sex){
             return res
                 .status(statusCode.BAD_REQUEST)
                 .send(message.fail(statusCode.BAD_REQUEST,'회원가입이 실패하였습니다.'));
@@ -67,7 +67,7 @@ export = {
                 }else{
                     const encryptUserPw = await encrypt(user_pw);
                     const newUser = await User.create({
-                        user_id: user_id, user_pw: encryptUserPw, age: age, adress: adress, name: name, sex: sex
+                        user_id: user_id, user_pw: encryptUserPw, age: age, address: address, name: name, sex: sex
                     });
                     await newUser.save();
                     const newUserInfo = await User.findOne({
@@ -83,7 +83,7 @@ export = {
         }
     },
     update:async (req: Request, res: Response, next: NextFunction) => {
-        const {user_id, user_pw, age, adress, name} = req.body;
+        const {user_id, user_pw, age, address, name} = req.body;
         if (!user_id){
             return res
                 .status(statusCode.BAD_REQUEST)
@@ -101,7 +101,7 @@ export = {
                     const updateUser = await User.update({
                         user_pw: encrypt(user_pw)||userInfo.user_pw
                         , age: age||userInfo.age
-                        , adress: adress||userInfo.adress
+                        , address: address||userInfo.address
                         , name: name||userInfo.name
                     },
                     {
