@@ -12,6 +12,7 @@ interface UserAttributes {
     address : string,
     name : string,
     sex : boolean,
+    del_yn : boolean,
 }
 
 export class User extends Model<UserAttributes> {
@@ -22,6 +23,7 @@ export class User extends Model<UserAttributes> {
     private _address! : string;
     private _name! : string;
     private _sex! : boolean;
+    private _del_yn! : boolean;
     private readonly _createdAt! : Date;
     private readonly _updatedAt! : Date;
 
@@ -107,6 +109,18 @@ export class User extends Model<UserAttributes> {
         }
     }
 
+    get del_yn(): boolean {
+        return this._del_yn;
+    }
+
+    set del_yn(value: boolean){
+        if (value == null || value == undefined) {
+            throw new Error('User Delete Validate is Empty');
+        }else{
+            this._del_yn = value;
+        }
+    }
+
     get createdAt(): Date {
         return this._createdAt;
     }
@@ -145,6 +159,10 @@ User.init(
             allowNull: false
         },
         sex : {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
+        del_yn : {
             type: DataTypes.BOOLEAN,
             allowNull: false
         }

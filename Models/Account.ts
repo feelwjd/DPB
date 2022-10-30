@@ -3,6 +3,7 @@ import { Sequelize, DataTypes, Model, Optional,
     HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, Association  
 } from "sequelize";
 import {sequelize} from '.';
+import { TransferHistory } from "./TransferHistory";
 import { User } from "./User";
 
 interface AccountAttributes{
@@ -22,6 +23,7 @@ export class Account extends Model<AccountAttributes>{
     private readonly _createdAt!: Date;
     private readonly _updatedAt!: Date;
     private _del_yn!: boolean;
+
 
     get id(): number {
         return this._id;
@@ -133,10 +135,7 @@ Account.init(
         updatedAt : 'updatedAt'
     }
 )
-User.hasMany(Account, {
-    sourceKey : "user_id",
-    foreignKey : "user_id"
-});
+
 Account.belongsTo(User, {
     foreignKey: 'user_id',
     targetKey: 'user_id'

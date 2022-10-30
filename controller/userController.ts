@@ -67,7 +67,7 @@ export = {
                 }else{
                     const encryptUserPw = await encrypt(user_pw);
                     const newUser = await User.create({
-                        user_id: user_id, user_pw: encryptUserPw, age: age, address: address, name: name, sex: sex
+                        user_id: user_id, user_pw: encryptUserPw, age: age, address: address, name: name, sex: sex, del_yn: false
                     });
                     await newUser.save();
                     const newUserInfo = await User.findOne({
